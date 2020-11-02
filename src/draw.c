@@ -351,11 +351,6 @@ static struct colored_layout *layout_from_notification(cairo_t *c, struct notifi
                 g_error_free(err);
         }
 
-
-        pango_layout_get_pixel_size(cl->l, NULL, &(n->displayed_height));
-        if (cl->icon) n->displayed_height = MAX(cairo_image_surface_get_height(cl->icon), n->displayed_height);
-        n->displayed_height = MAX(settings.notification_height, n->displayed_height + settings.padding * 2);
-
         n->first_render = false;
         return cl;
 }

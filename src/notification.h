@@ -78,7 +78,6 @@ struct notification {
         bool redisplayed;       /**< has been displayed before? */
         bool first_render;      /**< markup has been rendered before? */
         int dup_count;          /**< amount of duplicate notifications stacked onto this */
-        int displayed_height;
         enum behavior_fullscreen fullscreen; //!< The instruction what to do with it, when desktop enters fullscreen
         bool script_run;        /**< Has the script been executed already? */
 
