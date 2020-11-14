@@ -27,7 +27,7 @@ VALGRIND ?= valgrind
 # flags
 DEFAULT_CPPFLAGS = -D_DEFAULT_SOURCE -DVERSION=\"${VERSION}\"
 DEFAULT_CFLAGS   = -g --std=gnu99 -pedantic -Wall -Wno-overlength-strings -Os ${STATIC}
-DEFAULT_LDFLAGS  = -lm
+DEFAULT_LDFLAGS  = -lm -lrt
 
 CPPFLAGS_DEBUG := -DDEBUG_BUILD
 CFLAGS_DEBUG   := -O0

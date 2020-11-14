@@ -198,6 +198,7 @@ static void layer_surface_handle_configure(void *data,
 
 static void layer_surface_handle_closed(void *data,
                 struct zwlr_layer_surface_v1 *surface) {
+        LOG_W("Destroying layer");
         zwlr_layer_surface_v1_destroy(ctx.layer_surface);
         ctx.layer_surface = NULL;
 
@@ -525,6 +526,7 @@ void wl_win_show(window win) {
 }
 
 void wl_win_hide(window win) {
+        LOG_W("Hiding window");
         ctx.cur_dim.h = 0;
         set_dirty();
         wl_display_roundtrip(ctx.display);

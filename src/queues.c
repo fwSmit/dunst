@@ -307,6 +307,7 @@ bool queues_notification_replace_id(struct notification *new)
 /* see queues.h */
 void queues_notification_close_id(int id, enum reason reason)
 {
+        LOG_W("Closed notification with id %i", id);
         struct notification *target = NULL;
 
         GQueue *allqueues[] = { displayed, waiting };
@@ -333,6 +334,7 @@ void queues_notification_close_id(int id, enum reason reason)
 /* see queues.h */
 void queues_notification_close(struct notification *n, enum reason reason)
 {
+        LOG_W("Closed notification with reason %i", reason);
         assert(n != NULL);
         queues_notification_close_id(n->id, reason);
 }
