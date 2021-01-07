@@ -214,7 +214,9 @@ void screen_update_fallback(void)
 /* see screen.h */
 bool have_fullscreen_window(void)
 {
-        return window_is_fullscreen(get_focused_window());
+        bool fullscreen = window_is_fullscreen(get_focused_window());
+        LOG_D("Focused window fullscreen: %i", fullscreen);
+        return fullscreen;
 }
 
 /**
