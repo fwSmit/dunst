@@ -23,6 +23,27 @@ BEGIN {
 /^PASS/ { sub("PASS", GREEN "PASS" RESET) }
 /^SKIP/ { sub("SKIP", YELLOW "SKIP" RESET) }
 /^FAIL/ { sub("FAIL", RED "FAIL" RESET) }
+/[0-9]+ tests - [0-9]+ passed, [0-9]+ failed, [0-9]+ skipped/ {
+        # failed
+        if ($6 > 0) {
+                sub($6 " " $7, RED $6 " " $7 RESET)
+        }
+        # skipped
+        if ($8 > 0) {
+                sub($8 " " $9, YELLOW $8 " " $9 RESET)
+        }
+}
+
+/Pass: [0-9]+, fail: [0-9]+, skip: [0-9]+/ {
+        # failed
+        if (substr($4, 0, 1) > 0) {
+                sub($3 " " $4, RED $3 " " $4 RESET)
+        }
+        # skipped
+        if (substr($6, 0, 1) > 0) {
+                sub($5 " " $6, YELLOW $5 " " $6 RESET)
+        }
+}
 
 # highlight hexdump difference markers
 /^[0-9a-f]/ {
