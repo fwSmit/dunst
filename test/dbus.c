@@ -1,10 +1,7 @@
-#include "../src/dbus.c"
 #include "greatest.h"
 
 #include <gio/gio.h>
 
-#include "helpers.h"
-#include "queues.h"
 
 void suite_dbus(void)
 {
