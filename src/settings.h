@@ -34,7 +34,7 @@ enum zwlr_layer_shell_v1_layer {
 
 // TODO make a TYPE_CMD, instead of using TYPE_PATH for settings like dmenu and browser
 enum setting_type { TYPE_MIN = 0, TYPE_INT, TYPE_ENUM, TYPE_STRING, TYPE_BOOLEAN, TYPE_PATH,
-        TYPE_TIME, TYPE_GEOMETRY, TYPE_LIST, TYPE_SEP_COLOR,
+        TYPE_TIME, TYPE_GEOMETRY, TYPE_LIST, TYPE_SEP_COLOR, TYPE_LENGTH,
         TYPE_DEPRECATED, TYPE_MAX = TYPE_DEPRECATED + 1 }; // to be implemented
 
 struct separator_color_data {
@@ -51,6 +51,11 @@ struct geometry {
         bool negative_y;
         bool negative_width;
         bool width_set;
+};
+
+struct length {
+        int min;
+        int max;
 };
 
 struct settings {
@@ -121,6 +126,9 @@ struct settings {
         int progress_bar_frame_width;
         bool progress_bar;
         enum zwlr_layer_shell_v1_layer layer;
+        enum zwlr_layer_surface_v1_anchor *origin;
+        struct length width;
+        struct length height;
 };
 
 extern struct settings settings;
