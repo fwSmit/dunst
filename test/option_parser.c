@@ -3,6 +3,11 @@
 
 extern const char *base;
 
+#define ARRAY_SAME_LENGTH(a, b) { \
+        ASSERT_EQm("Test is invalid. Input data has to be the same length",\
+                        G_N_ELEMENTS(a), G_N_ELEMENTS(b));\
+}
+
 TEST test_next_section(void)
 {
         const char *section = NULL;
@@ -142,6 +147,9 @@ TEST test_string_to_int(void)
                 12345678,
                 -12345678
         };
+
+        ARRAY_SAME_LENGTH(inputs, results);
+
         struct setting s;
         s.type = TYPE_INT;
 
@@ -205,6 +213,8 @@ TEST test_string_to_boolean(void)
                 0,
                 0
         };
+
+        ARRAY_SAME_LENGTH(inputs, results);
 
         char buf[50];
         for (int i = 0; i < G_N_ELEMENTS(inputs); i++) {
@@ -404,6 +414,8 @@ TEST test_string_to_time(void)
                 S2US(120),
         };
 
+        ARRAY_SAME_LENGTH(inputs, results);
+
         char buf[50];
         for (int i = 0; i < G_N_ELEMENTS(inputs); i++) {
                 sprintf(buf, "Failed in round %i", i);
@@ -481,6 +493,9 @@ TEST test_string_to_path(void)
                 {expanded_home},
         };
 
+        ARRAY_SAME_LENGTH(inputs, results);
+        ARRAY_SAME_LENGTH(inputs, results2);
+
         char buf[256];
         for (int i = 0; i < G_N_ELEMENTS(inputs); i++) {
                 sprintf(buf, "Failed in round %i", i);
@@ -525,6 +540,8 @@ TEST test_string_to_sepcolor(void)
                 {SEP_CUSTOM, "#ab123c"},
                 {SEP_CUSTOM, "#AB123C"},
         };
+
+        ARRAY_SAME_LENGTH(inputs, results);
 
         char buf[50];
         for (int i = 0; i < G_N_ELEMENTS(inputs); i++) {
@@ -600,6 +617,8 @@ TEST test_string_to_length(void)
                 { -1234, 123 },
                 { -1234, -123 },
         };
+
+        ARRAY_SAME_LENGTH(inputs, results);
 
         char buf[50];
         for (int i = 0; i < G_N_ELEMENTS(inputs); i++) {
