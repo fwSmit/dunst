@@ -142,11 +142,12 @@ static struct color layout_get_sepcolor(struct colored_layout *cl,
         }
 }
 
-static void layout_setup_pango(PangoLayout *layout, int width)
+static void layout_setup_pango(PangoLayout *layout, int width, int height)
 {
         int scale = output->get_scale();
         pango_layout_set_wrap(layout, PANGO_WRAP_WORD_CHAR);
         pango_layout_set_width(layout, width * scale * PANGO_SCALE);
+        pango_layout_set_height(layout, height * scale * PANGO_SCALE);
         pango_layout_set_font_description(layout, pango_fdesc);
         pango_layout_set_spacing(layout, settings.line_height * scale * PANGO_SCALE);
 
@@ -267,7 +268,7 @@ static struct dimensions calculate_dimensions(GSList *layouts)
                         if (cl->icon) {
                                 w -= get_icon_width(cl->icon, scale) + get_text_icon_padding();
                         }
-                        layout_setup_pango(cl->l, w);
+                        layout_setup_pango(cl->l, w, settings.height.max);
 
                         /* re-read information */
                         get_text_size(cl->l, &w, &h, scale);
@@ -340,14 +341,14 @@ static struct colored_layout *layout_init_shared(cairo_t *c, const struct notifi
         int width = dim.w;
 
         if (have_dynamic_width()) {
-                layout_setup_pango(cl->l, -1);
+                layout_setup_pango(cl->l, -1, settings.height.max);
         } else {
                 width -= 2 * settings.h_padding;
                 width -= 2 * settings.frame_width;
                 if (cl->icon) {
                         width -= get_icon_width(cl->icon, scale) + get_text_icon_padding();
                 }
-                layout_setup_pango(cl->l, width);
+                layout_setup_pango(cl->l, width, settings.height.max);
         }
 
         return cl;
