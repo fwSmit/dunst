@@ -44,6 +44,8 @@ static FILE *xdg_config(const char *filename)
 
         path = g_strconcat(userdir, filename, NULL);
         f = fopen(path, "r");
+        if (f)
+                LOG_I("Using config path %s", path);
         g_free(path);
 
         for (const gchar * const *d = systemdirs;
@@ -51,11 +53,19 @@ static FILE *xdg_config(const char *filename)
              d++) {
                 path = g_strconcat(*d, filename, NULL);
                 f = fopen(path, "r");
+                if (f)
+                        LOG_I("Using config path %s", path);
                 g_free(path);
         }
 
         if (!f) {
                 f = fopen("/etc/dunst/dunstrc", "r");
+                if (f)
+                        LOG_I("Using config path %s", path);
+        }
+
+        if (!f) {
+                LOG_I("Could not find config file");
         }
 
         return f;
@@ -67,11 +77,15 @@ void load_settings(char *cmdline_config_path)
 #ifndef STATIC_CONFIG
         FILE *config_file = NULL;
 
+        LOG_D("Opening config file");
+
         if (cmdline_config_path) {
                 if (STR_EQ(cmdline_config_path, "-")) {
                         config_file = stdin;
+                        LOG_I("Config from stdin");
                 } else {
                         config_file = fopen(cmdline_config_path, "r");
+                        LOG_I("Config from cmdline: %s", cmdline_config_path);
                 }
 
                 if (!config_file) {
