@@ -494,7 +494,6 @@ static cairo_surface_t *render_background(cairo_surface_t *srf,
         int x = 0;
         int radius_int = corner_radius;
 
-        LOG_D("Render background: y: %i, %ix%i", y, width, height);
         cairo_t *c = cairo_create(srf);
 
         /* stroke area doesn't intersect with main area */
@@ -684,7 +683,7 @@ static struct dimensions layout_render(cairo_surface_t *srf,
                 dim.y += settings.separator_height;
 
 
-        if (((2 * settings.padding) + cl_h) < settings.height)
+        if ((2 * settings.padding + cl_h) < settings.height)
                 dim.y += cl_h + 2 * settings.padding;
         else
                 dim.y += settings.height;
