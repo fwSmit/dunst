@@ -212,7 +212,7 @@ static struct dimensions calculate_notification_dimensions(struct colored_layout
 {
         struct dimensions dim = { 0 };
 
-        int icon_width = cl->icon? get_icon_width(cl->icon, scale) + settings.text_icon_padding : 0;
+        int icon_width = cl->icon? get_icon_width(cl->icon, scale) + get_text_icon_padding() : 0;
         int icon_height = cl->icon? get_icon_height(cl->icon, scale) : 0;
         int max_text_width = settings.width.max - icon_width - 2 * settings.h_padding;
         // TODO don't allow this to happen
@@ -250,7 +250,7 @@ static struct dimensions calculate_dimensions(GSList *layouts)
                 struct dimensions n_dim = calculate_notification_dimensions(cl, scale);
                 dim.h += n_dim.h;
                 LOG_D("Notification dimensions %ix%i", n_dim.w, n_dim.h);
-                dim.w = MAX(dim.w, n_dim.w + 2 * settings.padding);
+                dim.w = MAX(dim.w, n_dim.w + settings.frame_width);
         }
 
         dim.w += 2 * settings.frame_width;
